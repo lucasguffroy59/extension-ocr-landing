@@ -41,11 +41,13 @@
       font-weight: 700;
       margin-bottom: 20px;
       line-height: 1.2;
+      color: white;
     }
 
     header .subtitle {
       font-size: 1.2rem;
       margin-bottom: 30px;
+      color: white;
       opacity: 0.95;
     }
 
@@ -73,29 +75,40 @@
 
     section {
       padding: 60px 20px;
+      background: transparent;
     }
 
     section:nth-child(even) {
       background: #f9f9f9;
     }
+    
+    section.cta-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    }
 
     h2 {
       font-size: 2rem;
       margin-bottom: 30px;
-      color: #2d2d2d;
+      color: #1a1a1a;
       text-align: center;
     }
 
     h3 {
       font-size: 1.4rem;
       margin-bottom: 15px;
-      color: #3d3d3d;
+      color: #1a1a1a;
     }
 
     p {
       margin-bottom: 20px;
       font-size: 1.05rem;
-      color: #4a4a4a;
+      color: #2d2d2d;
+    }
+
+    /* Override colors for sections with specific backgrounds */
+    .cta-section h2,
+    .cta-section p {
+      color: white !important;
     }
 
     .problem-box {
@@ -107,7 +120,7 @@
     }
 
     .problem-box p {
-      color: #856404;
+      color: #5a3d00;
       margin-bottom: 10px;
     }
 
@@ -158,7 +171,7 @@
     }
 
     .feature h3 {
-      color: #667eea;
+      color: #4c3fb5;
       font-size: 1.2rem;
       margin-bottom: 12px;
     }
@@ -166,7 +179,7 @@
     .feature p {
       margin-bottom: 0;
       font-size: 1rem;
-      color: #5a5a5a;
+      color: #2d2d2d;
     }
 
     .use-cases {
@@ -178,6 +191,7 @@
       padding: 15px 0 15px 40px;
       position: relative;
       border-bottom: 1px solid #e8e8e8;
+      color: #1a1a1a;
     }
 
     .use-cases li:last-child {
@@ -188,7 +202,7 @@
       content: "✓";
       position: absolute;
       left: 0;
-      color: #667eea;
+      color: #4c3fb5;
       font-weight: 700;
       font-size: 1.4rem;
     }
@@ -202,7 +216,7 @@
     }
 
     .privacy-section h3 {
-      color: #2e7d32;
+      color: #1b5e20;
       text-align: center;
     }
 
@@ -214,14 +228,14 @@
     .privacy-list li {
       padding: 10px 0 10px 30px;
       position: relative;
-      color: #1b5e20;
+      color: #0d3f14;
     }
 
     .privacy-list li:before {
       content: "✓";
       position: absolute;
       left: 0;
-      color: #4caf50;
+      color: #2e7d32;
       font-weight: 700;
       font-size: 1.2rem;
     }
@@ -235,7 +249,7 @@
     }
 
     .permissions-box h3 {
-      color: #1565c0;
+      color: #0d47a1;
       text-align: left;
       font-size: 1.2rem;
     }
@@ -247,7 +261,7 @@
 
     .permissions-box li {
       margin-bottom: 10px;
-      color: #0d47a1;
+      color: #083567;
     }
 
     .permissions-note {
@@ -255,7 +269,7 @@
       padding: 15px;
       background: #fff9c4;
       border-radius: 4px;
-      color: #f57f17;
+      color: #a54e00;
       font-size: 0.95rem;
     }
 
@@ -272,14 +286,14 @@
     }
 
     .faq-item h3 {
-      color: #667eea;
+      color: #4c3fb5;
       font-size: 1.1rem;
       margin-bottom: 12px;
     }
 
     .faq-item p {
       margin-bottom: 0;
-      color: #5a5a5a;
+      color: #2d2d2d;
     }
 
     .installation-steps {
@@ -298,7 +312,7 @@
     .installation-steps li {
       margin-bottom: 15px;
       padding-left: 10px;
-      color: #4a4a4a;
+      color: #2d2d2d;
     }
 
     .cta-section {
@@ -309,27 +323,27 @@
     }
 
     .cta-section h2 {
-      color: white;
+      color: white !important;
       margin-bottom: 20px;
     }
 
     .cta-section p {
-      color: white;
-      opacity: 0.95;
+      color: white !important;
+      opacity: 1;
       margin-bottom: 30px;
       font-size: 1.1rem;
     }
 
     footer {
       background: #2d2d2d;
-      color: #aaa;
+      color: #d0d0d0;
       text-align: center;
       padding: 30px 20px;
     }
 
     footer p {
       margin-bottom: 0;
-      color: #aaa;
+      color: #d0d0d0;
     }
 
     @media (max-width: 768px) {
@@ -361,7 +375,7 @@
     <div class="container">
       <h1>Text Extractor OCR – Chrome extension to extract text from any screen capture</h1>
       <p class="subtitle">Extract text from images, screenshots, PDFs, and videos instantly. 100% offline, 100% private.</p>
-      <a href="#" class="cta-button">Add to Chrome</a>
+      <a href="https://chromewebstore.google.com/detail/text-extractor-ocr/adnbbikhngpjphoikbkdgfgmbgbaicgp" class="cta-button">Add to Chrome</a>
     </div>
   </header>
 
@@ -506,7 +520,7 @@
           </ol>
         </div>
         <div style="text-align: center; margin-top: 40px;">
-          <a href="#" class="cta-button">Add to Chrome</a>
+          <a href="https://chromewebstore.google.com/detail/text-extractor-ocr/adnbbikhngpjphoikbkdgfgmbgbaicgp" class="cta-button">Add to Chrome</a>
         </div>
       </div>
     </section>
@@ -543,7 +557,7 @@
       <div class="container">
         <h2>Start Extracting Text Today</h2>
         <p>Install Text Extractor OCR and extract text from any screen capture instantly.</p>
-        <a href="#" class="cta-button">Add to Chrome</a>
+        <a href="https://chromewebstore.google.com/detail/text-extractor-ocr/adnbbikhngpjphoikbkdgfgmbgbaicgp" class="cta-button">Add to Chrome</a>
       </div>
     </section>
   </main>
