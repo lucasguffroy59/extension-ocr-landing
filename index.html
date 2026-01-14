@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Text Extractor OCR - Screen OCR Chrome extension to extract text from images, screenshots, PDFs, and videos. Instant offline capture. 100% private, no cloud, no data upload.">
+  <title>Text Extractor OCR – Chrome extension to extract text from any screen capture</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #fafafa;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    header .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.95;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: white;
+      color: #667eea;
+      padding: 15px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    main {
+      background: white;
+    }
+
+    section {
+      padding: 60px 20px;
+    }
+
+    section:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #2d2d2d;
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: #3d3d3d;
+    }
+
+    p {
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+      color: #4a4a4a;
+    }
+
+    .problem-box {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 20px;
+      margin: 30px 0;
+      border-radius: 4px;
+    }
+
+    .problem-box p {
+      color: #856404;
+      margin-bottom: 10px;
+    }
+
+    .problem-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .step {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .step-number {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: #667eea;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .feature {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .feature h3 {
+      color: #667eea;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .feature p {
+      margin-bottom: 0;
+      font-size: 1rem;
+      color: #5a5a5a;
+    }
+
+    .use-cases {
+      list-style: none;
+      margin-top: 30px;
+    }
+
+    .use-cases li {
+      padding: 15px 0 15px 40px;
+      position: relative;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .use-cases li:last-child {
+      border-bottom: none;
+    }
+
+    .use-cases li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #667eea;
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+
+    .privacy-section {
+      background: #e8f5e9;
+      border: 2px solid #4caf50;
+      border-radius: 8px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+
+    .privacy-section h3 {
+      color: #2e7d32;
+      text-align: center;
+    }
+
+    .privacy-list {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .privacy-list li {
+      padding: 10px 0 10px 30px;
+      position: relative;
+      color: #1b5e20;
+    }
+
+    .privacy-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #4caf50;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .permissions-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 20px;
+      margin: 30px 0;
+      border-radius: 4px;
+    }
+
+    .permissions-box h3 {
+      color: #1565c0;
+      text-align: left;
+      font-size: 1.2rem;
+    }
+
+    .permissions-box ul {
+      margin-top: 15px;
+      margin-left: 20px;
+    }
+
+    .permissions-box li {
+      margin-bottom: 10px;
+      color: #0d47a1;
+    }
+
+    .permissions-note {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff9c4;
+      border-radius: 4px;
+      color: #f57f17;
+      font-size: 0.95rem;
+    }
+
+    .faq {
+      margin-top: 40px;
+    }
+
+    .faq-item {
+      background: white;
+      padding: 25px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .faq-item h3 {
+      color: #667eea;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+
+    .faq-item p {
+      margin-bottom: 0;
+      color: #5a5a5a;
+    }
+
+    .installation-steps {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      margin: 30px 0;
+    }
+
+    .installation-steps ol {
+      margin-left: 20px;
+      margin-top: 20px;
+    }
+
+    .installation-steps li {
+      margin-bottom: 15px;
+      padding-left: 10px;
+      color: #4a4a4a;
+    }
+
+    .cta-section {
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .cta-section h2 {
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .cta-section p {
+      color: white;
+      opacity: 0.95;
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      background: #2d2d2d;
+      color: #aaa;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    footer p {
+      margin-bottom: 0;
+      color: #aaa;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      header .subtitle {
+        font-size: 1rem;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>Text Extractor OCR – Chrome extension to extract text from any screen capture</h1>
+      <p class="subtitle">Extract text from images, screenshots, PDFs, and videos instantly. 100% offline, 100% private.</p>
+      <a href="#" class="cta-button">Add to Chrome</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="problem">
+      <div class="container">
+        <h2>The Problem</h2>
+        <div class="problem-box">
+          <p>Text trapped in images, PDFs, videos, or scanned documents cannot be copied, searched, or edited.</p>
+          <p>You need to manually retype text from screenshots, or upload sensitive documents to external OCR services.</p>
+          <p>Existing solutions require uploading your data to cloud servers, compromising privacy and requiring an internet connection.</p>
+        </div>
+        <p>Text Extractor OCR solves this by processing everything locally on your device. No uploads, no accounts, no tracking.</p>
+      </div>
+    </section>
+
+    <section id="how-it-works">
+      <div class="container">
+        <h2>How It Works</h2>
+        <p>Text Extractor OCR runs directly in your browser using Tesseract.js, a WebAssembly-powered OCR engine. All processing happens on your device.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Open the Panel</h3>
+            <p>Click the extension icon or press Ctrl+Shift+O (Cmd+Shift+O on Mac) to open the side panel.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Capture Text</h3>
+            <p>Click "Capture text" and drag to select the area of your screen containing text.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Get Results</h3>
+            <p>The extension extracts the text and automatically copies it to your clipboard. View your history in the side panel.</p>
+          </div>
+        </div>
+        <p style="margin-top: 40px;">The extension captures a screenshot of the visible viewport when you select an area. The screenshot is processed locally using Tesseract.js. No data leaves your device.</p>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <h2>Features</h2>
+        <div class="features-grid">
+          <div class="feature">
+            <h3>Offline OCR Processing</h3>
+            <p>All text recognition runs locally using Tesseract.js WebAssembly. No internet required after installation.</p>
+          </div>
+          <div class="feature">
+            <h3>10 Language Support</h3>
+            <p>Recognizes English, French, Spanish, German, Italian, Portuguese, Chinese (Simplified), Arabic, Russian, and Japanese.</p>
+          </div>
+          <div class="feature">
+            <h3>Screen Selection</h3>
+            <p>Click and drag to select any visible area of your screen for text extraction.</p>
+          </div>
+          <div class="feature">
+            <h3>Automatic Clipboard Copy</h3>
+            <p>Extracted text is automatically copied to your clipboard for immediate use.</p>
+          </div>
+          <div class="feature">
+            <h3>History Management</h3>
+            <p>View all extracted text with timestamps, page titles, and URLs in the side panel.</p>
+          </div>
+          <div class="feature">
+            <h3>Keyboard Shortcut</h3>
+            <p>Quick access with Ctrl+Shift+O (Cmd+Shift+O on Mac) to toggle the side panel.</p>
+          </div>
+          <div class="feature">
+            <h3>Context Menu</h3>
+            <p>Right-click anywhere on a page to start capturing text.</p>
+          </div>
+          <div class="feature">
+            <h3>Image Preprocessing</h3>
+            <p>Automatic image enhancement with adjustable brightness, contrast, grayscale, and sharpening options.</p>
+          </div>
+          <div class="feature">
+            <h3>Text Cleaning Options</h3>
+            <p>Remove special characters and noise with configurable cleaning modes for cleaner output.</p>
+          </div>
+          <div class="feature">
+            <h3>Configurable Recognition</h3>
+            <p>Choose between normal text recognition or single block mode depending on your content.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="use-cases">
+      <div class="container">
+        <h2>Use Cases</h2>
+        <ul class="use-cases">
+          <li>Extract text from screenshots of error messages, documentation, or code snippets</li>
+          <li>Copy text from images embedded in PDFs or web pages</li>
+          <li>Capture text from videos, presentations, or webinars</li>
+          <li>Extract data from scanned documents without uploading to external services</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="privacy">
+      <div class="container">
+        <h2>Privacy & Security</h2>
+        <div class="privacy-section">
+          <h3>Your Data Stays On Your Device</h3>
+          <ul class="privacy-list">
+            <li>All OCR processing happens locally using WebAssembly</li>
+            <li>No data is sent to external servers</li>
+            <li>No user information is collected</li>
+            <li>No browsing activity is tracked</li>
+            <li>Screenshots are only captured when you explicitly click "Capture text"</li>
+            <li>Extracted text history is stored locally in your browser</li>
+          </ul>
+        </div>
+        <div class="permissions-box">
+          <h3>Required Permissions</h3>
+          <ul>
+            <li><strong>Storage:</strong> To save your extraction history and preferences locally</li>
+            <li><strong>Clipboard Write:</strong> To automatically copy extracted text to your clipboard</li>
+            <li><strong>Context Menus:</strong> To add "Capture text" to the right-click menu</li>
+            <li><strong>Active Tab:</strong> To capture screenshots of the visible viewport when you click the capture button</li>
+          </ul>
+          <div class="permissions-note">
+            <strong>Note:</strong> The extension can only capture the visible content of the active tab, and only when you explicitly click the "Capture text" button. It cannot access content outside the visible viewport or capture screenshots automatically.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="installation">
+      <div class="container">
+        <h2>Installation</h2>
+        <div class="installation-steps">
+          <p>Install Text Extractor OCR from the Chrome Web Store:</p>
+          <ol>
+            <li>Click the "Add to Chrome" button</li>
+            <li>Confirm the installation in the popup</li>
+            <li>The extension icon will appear in your browser toolbar</li>
+            <li>Click the icon or press Ctrl+Shift+O to open the side panel</li>
+            <li>Click "Capture text" and start extracting text</li>
+          </ol>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+          <a href="#" class="cta-button">Add to Chrome</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq">
+          <div class="faq-item">
+            <h3>Does this extension work offline?</h3>
+            <p>Yes. After installation, all OCR processing runs locally using Tesseract.js WebAssembly. No internet connection is required.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What area of the screen can be captured?</h3>
+            <p>The extension can only capture the visible viewport of the active browser tab. It cannot capture content that is scrolled out of view or content outside the browser window.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How accurate is the text recognition?</h3>
+            <p>OCR accuracy depends on image quality, text size, font clarity, and contrast. The extension includes preprocessing options (brightness, contrast, grayscale, sharpening) to improve recognition. Clear, high-contrast text typically yields the best results.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I use multiple languages at once?</h3>
+            <p>Yes. The extension detects your browser language and automatically selects appropriate OCR languages. You can configure multiple languages in the advanced options page.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Where is my extraction history stored?</h3>
+            <p>All extracted text is stored locally in your browser using Chrome's storage API. History is limited to the 100 most recent extractions and never leaves your device.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <h2>Start Extracting Text Today</h2>
+        <p>Install Text Extractor OCR and extract text from any screen capture instantly.</p>
+        <a href="#" class="cta-button">Add to Chrome</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Text Extractor OCR – 100% Private, Offline OCR</p>
+    </div>
+  </footer>
+
+</body>
+</html>
